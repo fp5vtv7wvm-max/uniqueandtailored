@@ -11,36 +11,38 @@
     .logo { font-family: 'Playfair Display', serif; color: #ff69b4; text-decoration: none; font-size: 22px; }
 
     .form-container { max-width: 600px; margin: 60px auto; padding: 20px; }
-    h1 { font-family: 'Playfair Display', serif; color: #ff69b4; font-size: 40px; text-align: center; }
+    h1 { font-family: 'Playfair Display', serif; color: #ff69b4; font-size: 40px; text-align: center; margin-bottom: 10px; }
     
     .form-group { margin-bottom: 25px; }
     label { display: block; color: #ff69b4; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
     
     input, select, textarea { 
       width: 100%; padding: 15px; background: #111; border: 1px solid #333; color: white; outline: none; box-sizing: border-box;
+      border-radius: 4px;
     }
-    input:focus { border-color: #ff69b4; }
+    input:focus, select:focus, textarea:focus { border-color: #ff69b4; }
     
     .hidden { display: none !important; }
     
     .btn-submit { 
       width: 100%; background: #ff69b4; color: black; border: none; padding: 18px; 
       font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+      transition: 0.3s ease;
     }
+    .btn-submit:hover { background: #ff85c2; transform: translateY(-2px); }
 
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(1);
       cursor: pointer;
     }
-     footer { text-align: center; padding: 40px; color: #555; font-size: 13px; border-top: 1px solid #111; }
-  
+    footer { text-align: center; padding: 40px; color: #555; font-size: 13px; border-top: 1px solid #111; }
   </style>
 </head>
 <body>
 
 <nav class="navbar">
   <a href="index.html" class="logo">U&T ✨</a>
-  <a href="index.html" style="color:white; text-decoration:none; font-size:12px;">BACK TO HOME</a>
+  <a href="index.html" style="color:white; text-decoration:none; font-size:12px; border: 1px solid #333; padding: 5px 10px;">BACK TO HOME</a>
 </nav>
 
 <div class="form-container">
@@ -48,7 +50,11 @@
   <p style="text-align:center; color:#888; margin-bottom:40px;">Tell us what you're looking for.</p>
 
   <form action="https://formsubmit.co/jameshiargross@gmail.com" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="_next" value="https://yourdomain.com/submit.html">
+    
+    <!-- Redirect to your confirmation/payment page -->
+    <input type="hidden" name="_next" value="https://fp5vtv7wvm-max.github.io/uniqueandtailored/submit.html">
+    <!-- Optional: Disables the FormSubmit captcha for a smoother redirect -->
+    <input type="hidden" name="_captcha" value="false">
 
     <div class="form-group">
       <label>What are we creating?</label>
@@ -62,19 +68,19 @@
 
     <div class="form-group">
       <label>Your Name</label>
-      <input type="text" name="Name" required>
+      <input type="text" name="Name" placeholder="Full Name" required>
     </div>
 
     <div class="form-group">
       <label>Phone Number</label>
-      <input type="tel" name="Phone" required>
+      <input type="tel" name="Phone" placeholder="000-000-0000" required>
     </div>
 
     <!-- Logic Fields for Products (Shirts/Cups) -->
     <div id="productFields" class="hidden">
       <div class="form-group">
         <label>Estimated Quantity</label>
-        <input type="number" name="Quantity" min="1">
+        <input type="number" name="Quantity" min="1" placeholder="Amount needed">
       </div>
       <div class="form-group">
         <label>Upload Inspiration/Logo</label>
@@ -82,11 +88,11 @@
       </div>
     </div>
 
-    <!-- Date and Time (Now shown for every selection) -->
+    <!-- Date and Time -->
     <div id="dateTimeFields" class="hidden">
       <div class="form-group">
         <label id="dateLabel">Preferred Date</label>
-        <input type="date" name="Requested_Date" id="mainDate" required>
+        <input type="date" name="Requested_Date" id="mainDate">
       </div>
       <div class="form-group">
         <label id="timeLabel">Preferred Time (EST: 5:00 PM - 8:30 PM)</label>
@@ -105,15 +111,16 @@
 
     <div class="form-group">
       <label>Additional Notes</label>
-      <textarea name="Notes" rows="4" placeholder="Tell us more about your vision..."></textarea>
+      <textarea name="Notes" rows="4" placeholder="Share your vision or specific details..."></textarea>
     </div>
 
     <button type="submit" class="btn-submit">Submit Request</button>
   </form>
 </div>
- <footer>
-    &copy; 2026 Unique & Tailored. <br> Youngstown, OH | Elite Event Design & Custom Apparel
-  </footer>
+
+<footer>
+  &copy; 2026 Unique & Tailored. <br> Youngstown, OH | Elite Event Design & Custom Apparel
+</footer>
 
 <script>
   const select = document.getElementById('serviceSelect');
@@ -121,18 +128,19 @@
   const dateT = document.getElementById('dateTimeFields');
   const dateLabel = document.getElementById('dateLabel');
   const timeLabel = document.getElementById('timeLabel');
+  const mainDate = document.getElementById('mainDate');
 
   // Set today as minimum date
   const today = new Date().toISOString().split('T')[0];
-  document.getElementById('mainDate').setAttribute('min', today);
+  mainDate.setAttribute('min', today);
 
   select.addEventListener('change', function() {
     const val = this.value;
 
     if(val) {
       dateT.classList.remove('hidden');
+      mainDate.setAttribute('required', '');
       
-      // Update labels based on selection for better UX
       if(val === 'shirts' || val === 'cups') {
         prodF.classList.remove('hidden');
         dateLabel.innerText = "Required Delivery/Pickup Date";
@@ -145,9 +153,11 @@
     } else {
       dateT.classList.add('hidden');
       prodF.classList.add('hidden');
+      mainDate.removeAttribute('required');
     }
   });
 
+  // Handle service pre-selection from home page
   window.onload = () => {
     const params = new URLSearchParams(window.location.search);
     const service = params.get('service');
