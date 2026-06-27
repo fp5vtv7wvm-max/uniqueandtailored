@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ready to Ship | Unique & Tailored</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    .qr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+    .qr { background: #1a1a1a; padding: 5px; border-radius: 8px; text-align: center; }
+    .qr img { width: 60px; height: 60px; border-radius: 4px; }
+    .qr p { font-size: 8.1px; margin-top: 3px; font-weight: bold; }
+    
+    body { font-family: 'Poppins', sans-serif; background: #050505; color: white; margin: 0; padding-bottom: 100px; }
+    .navbar { padding: 20px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,105,180,0.2); }
+    .logo { font-family: 'Playfair Display', serif; color: #ff69b4; text-decoration: none; font-size: 22px; }
+    .container { max-width: 900px; margin: 60px auto; padding: 20px; text-align: center; }
+    h1 { font-family: 'Playfair Display', serif; color: #ff69b4; font-size: 40px; margin-bottom: 40px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+    .product-card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 8px; }
+    .product-card h3 { color: white; margin: 10px 0; }
+    .price { color: #ff69b4; font-weight: 600; font-size: 1.2em; display: block; margin-bottom: 15px; }
+    .btn-order { display: inline-block; background: #ff69b4; color: black; padding: 10px 20px; text-decoration: none; font-weight: 700; text-transform: uppercase; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="logo">U&T ✨</a>
+  <a href="index.html" style="color:white; text-decoration:none; font-size:12px; border: 1px solid #333; padding: 5px 10px;">BACK TO HOME</a>
+</nav>
+<div class="container">
+  <h1>Ready to Ship</h1>
+  <p style="color: #aaa; margin-bottom: 40px; line-height: 1.6;">
+    Looking for something specific? You can request custom designs on our 
+    <a href="index.html" style="color: #ff69b4;">Home Page</a>. 
+    Below is our current inventory ready to ship! 
+    <strong>Select an item to choose between convenient pickup or local delivery.</strong>
+  </p>
+
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200" alt="Graduation Fan" style="width:100%; border-radius:4px;">
+      <h3>Graduation Fan</h3>
+      <span class="price">$15.00</span>
+      <a href="form.html?product=Graduation+Fan&price=15.00&image=https://via.placeholder.com/200" class="btn-order">Order Now</a>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200" alt="Custom Keychain" style="width:100%; border-radius:4px;">
+      <h3>Custom Keychain</h3>
+      <span class="price">$10.00</span>
+      <a href="form.html?product=Custom+Keychain&price=10.00&image=https://via.placeholder.com/200" class="btn-order">Order Now</a>
+    </div>
+
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200" alt="Custom Tumbler" style="width:100%; border-radius:4px;">
+      <h3>Custom Tumbler</h3>
+      <span class="price">$25.00</span>
+      <a href="form.html?product=Custom+Tumbler&price=25.00&image=https://via.placeholder.com/200" class="btn-order">Order Now</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

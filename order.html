@@ -9,33 +9,15 @@
     body { font-family: 'Poppins', sans-serif; background: #050505; color: white; margin: 0; padding-bottom: 100px; }
     .navbar { padding: 20px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,105,180,0.2); }
     .logo { font-family: 'Playfair Display', serif; color: #ff69b4; text-decoration: none; font-size: 22px; }
-
     .form-container { max-width: 600px; margin: 60px auto; padding: 20px; }
     h1 { font-family: 'Playfair Display', serif; color: #ff69b4; font-size: 40px; text-align: center; margin-bottom: 10px; }
-    
     .form-group { margin-bottom: 25px; }
     label { display: block; color: #ff69b4; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-    
-    input, select, textarea { 
-      width: 100%; padding: 15px; background: #111; border: 1px solid #333; color: white; outline: none; box-sizing: border-box;
-      border-radius: 4px;
-    }
-    input:focus, select:focus, textarea:focus { border-color: #ff69b4; }
-    
+    input, select, textarea { width: 100%; padding: 15px; background: #111; border: 1px solid #333; color: white; outline: none; box-sizing: border-box; border-radius: 4px; }
     .hidden { display: none !important; }
-    
-    .btn-submit { 
-      width: 100%; background: #ff69b4; color: black; border: none; padding: 18px; 
-      font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
-      transition: 0.3s ease;
-    }
-    .btn-submit:hover { background: #ff85c2; transform: translateY(-2px); }
-
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1);
-      cursor: pointer;
-    }
-    footer { text-align: center; padding: 40px; color: #555; font-size: 13px; border-top: 1px solid #111; }
+    .btn-submit { width: 100%; background: #ff69b4; color: black; border: none; padding: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+    .btn-email { display: block; width: 100%; background: #333; color: #ff69b4; border: 1px solid #ff69b4; text-align: center; padding: 15px; text-decoration: none; font-weight: 600; margin-top: 20px; border-radius: 4px; }
+    .payment-area { text-align: center; display: none; }
   </style>
 </head>
 <body>
@@ -46,127 +28,80 @@
 </nav>
 
 <div class="form-container">
-  <h1>Tailored Request</h1>
-  <p style="text-align:center; color:#888; margin-bottom:40px;">Tell us what you're looking for.</p>
-
-  <form action="https://formsubmit.co/jameshiargross@gmail.com" method="POST" enctype="multipart/form-data">
-    
-    <!-- Redirect to your confirmation/payment page -->
-    <input type="hidden" name="_next" value="https://fp5vtv7wvm-max.github.io/uniqueandtailored/submit.html">
-    <!-- Optional: Disables the FormSubmit captcha for a smoother redirect -->
-    <input type="hidden" name="_captcha" value="false">
-
-    <div class="form-group">
-      <label>What are we creating?</label>
-      <select name="Service" id="serviceSelect" required>
-        <option value="">-- Choose Option --</option>
-        <option value="shirts">Custom T-Shirts</option>
-        <option value="cups">Custom Cups</option>
-        <option value="planning">Event Planning</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" name="Name" placeholder="Full Name" required>
-    </div>
-
-    <div class="form-group">
-      <label>Phone Number</label>
-      <input type="tel" name="Phone" placeholder="000-000-0000" required>
-    </div>
-
-    <!-- Logic Fields for Products (Shirts/Cups) -->
-    <div id="productFields" class="hidden">
+  <div id="form-ui">
+    <h1>Tailored Request</h1>
+    <form id="orderForm">
+      <input type="hidden" name="access_key" value="e8034fbc-90eb-4224-aa25-70c2cc28425b">
+      
       <div class="form-group">
-        <label>Estimated Quantity</label>
-        <input type="number" name="Quantity" min="1" placeholder="Amount needed">
-      </div>
-      <div class="form-group">
-        <label>Upload Inspiration/Logo</label>
-        <input type="file" name="Attachment" accept="image/*">
-      </div>
-    </div>
-
-    <!-- Date and Time -->
-    <div id="dateTimeFields" class="hidden">
-      <div class="form-group">
-        <label id="dateLabel">Preferred Date</label>
-        <input type="date" name="Requested_Date" id="mainDate">
-      </div>
-      <div class="form-group">
-        <label id="timeLabel">Preferred Time (EST: 5:00 PM - 8:30 PM)</label>
-        <select name="Requested_Time">
-          <option value="17:00">5:00 PM</option>
-          <option value="17:30">5:30 PM</option>
-          <option value="18:00">6:00 PM</option>
-          <option value="18:30">6:30 PM</option>
-          <option value="19:00">7:00 PM</option>
-          <option value="19:30">7:30 PM</option>
-          <option value="20:00">8:00 PM</option>
-          <option value="20:30">8:30 PM</option>
+        <label>What are we creating?</label>
+        <select name="Service" id="serviceSelect" required>
+          <option value="">-- Choose Option --</option>
+          <option value="shirts">Custom T-Shirts</option>
+          <option value="baskets">Custom Baskets</option>
+          <option value="keychains">Custom Keychains</option>
+          <option value="fans">Graduation Fans</option>
+          <option value="cups">Custom Cups</option>
+          <option value="planning">Event Planning</option>
         </select>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Additional Notes</label>
-      <textarea name="Notes" rows="4" placeholder="Share your vision or specific details..."></textarea>
-    </div>
+      <div class="form-group"><label>Your Name</label><input type="text" name="Name" required></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" name="Phone" required></div>
 
-    <button type="submit" class="btn-submit">Submit Request</button>
-  </form>
+      <div id="productFields" class="hidden">
+        <div class="form-group"><label>Estimated Quantity</label><input type="number" name="Quantity" min="1"></div>
+      </div>
+
+      <div id="dateTimeFields" class="hidden">
+        <div class="form-group"><label id="dateLabel">Date</label><input type="date" name="Date" id="mainDate"></div>
+        <div class="form-group"><label>Time</label><select name="Time"><option value="17:00">5:00 PM</option><option value="17:30">5:30 PM</option><option value="18:00">6:00 PM</option><option value="18:30">6:30 PM</option><option value="19:00">7:00 PM</option><option value="19:30">7:30 PM</option></select></div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submit-btn">Submit Request</button>
+    </form>
+  </div>
+
+  <div id="success-ui" class="payment-area">
+    <h1 style="color: #4CAF50;">Request Received! 🎉</h1>
+    <p>Thanks! Michelle will reach out within 24 hours.</p>
+    <p><strong>Want to send reference photos? Please add the same name on your request to the subject line!</strong></p>
+    <a href="mailto:uniqueandtailoreddesigns@aol.com?subject=Reference%20Photos%20for%20My%20Order" class="btn-email">Email Reference Photos</a>
+    <a href="index.html" style="display:block; margin-top:30px; color:#ff69b4;">Return Home</a>
+  </div>
 </div>
 
-<footer>
-  &copy; 2026 Unique & Tailored. <br> Youngstown, OH | Elite Event Design & Custom Apparel
-</footer>
-
 <script>
+  const form = document.getElementById('orderForm');
   const select = document.getElementById('serviceSelect');
-  const prodF = document.getElementById('productFields');
-  const dateT = document.getElementById('dateTimeFields');
-  const dateLabel = document.getElementById('dateLabel');
-  const timeLabel = document.getElementById('timeLabel');
   const mainDate = document.getElementById('mainDate');
 
-  // Set today as minimum date
-  const today = new Date().toISOString().split('T')[0];
-  mainDate.setAttribute('min', today);
+  mainDate.setAttribute('min', new Date().toISOString().split('T')[0]);
 
   select.addEventListener('change', function() {
-    const val = this.value;
-
-    if(val) {
-      dateT.classList.remove('hidden');
-      mainDate.setAttribute('required', '');
-      
-      if(val === 'shirts' || val === 'cups') {
-        prodF.classList.remove('hidden');
-        dateLabel.innerText = "Required Delivery/Pickup Date";
-        timeLabel.innerText = "Preferred Pickup/Contact Time";
-      } else {
-        prodF.classList.add('hidden');
-        dateLabel.innerText = "Preferred Consultation Date";
-        timeLabel.innerText = "Preferred Consultation Time (5:00 PM - 8:30 PM)";
-      }
-    } else {
-      dateT.classList.add('hidden');
-      prodF.classList.add('hidden');
-      mainDate.removeAttribute('required');
-    }
+    const isPlanning = this.value === 'planning';
+    document.getElementById('dateTimeFields').classList.toggle('hidden', !this.value);
+    document.getElementById('productFields').classList.toggle('hidden', (isPlanning || this.value === ''));
   });
 
-  // Handle service pre-selection from home page
-  window.onload = () => {
-    const params = new URLSearchParams(window.location.search);
-    const service = params.get('service');
-    if(service) {
-      select.value = service;
-      select.dispatchEvent(new Event('change'));
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.innerText = "Processing...";
+    
+    const res = await fetch("https://api.web3forms.com/submit", { 
+        method: "POST", 
+        body: new FormData(form) 
+    });
+    
+    if (res.ok) {
+      document.getElementById('form-ui').style.display = 'none';
+      document.getElementById('success-ui').style.display = 'block';
+    } else {
+      alert("Something went wrong. Please try again.");
+      btn.innerText = "Submit Request";
     }
   };
 </script>
-
 </body>
 </html>
